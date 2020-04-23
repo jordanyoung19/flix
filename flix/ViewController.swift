@@ -17,6 +17,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
     var movies = [[String:Any]]()
 
     override func viewDidLoad() {
+        print("getting here")
         super.viewDidLoad()
         
         tableView.dataSource = self
@@ -35,6 +36,7 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
             
             self.movies = dataDictionary["results"] as! [[String:Any]]
             
+            print("getting here")
             self.tableView.reloadData()
               // TODO: Get the array of movies
               // TODO: Store the movies in a property to use elsewhere
@@ -69,6 +71,19 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
         return cell
     }
     
-
+    override func prepare(for segue:
+        UIStoryboardSegue, sender: Any?) {
+        
+        print("Loading up the details screen")
+        
+        let cell = sender as! UITableViewCell
+        let indexPath = tableView.indexPath(for: cell)!
+        let movie = movies[indexPath.row]
+        
+        let detailsViewController = segue.destination as! MovieDetailsViewController
+        detailsViewController.movie = movie
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
 }
-
